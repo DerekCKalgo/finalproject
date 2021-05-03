@@ -1,0 +1,17 @@
+#register{
+    width: 2000px;
+    min-height: 2000px;
+    background-image: linear-gradient(to top, #00c6fb 0%, #005bea 100%);
+}
+
+#showimage{
+    width: 2000px;
+    min-height: 2000px;
+    background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
+}
+
+#ranking{
+    width: 2000px;
+    min-height: 2000px;
+    background-image: linear-gradient(to right, #c33764 0%, #1d2671 100%);
+}

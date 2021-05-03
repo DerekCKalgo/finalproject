@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload photos</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div id="showimage">
+    <h1>Photos Uploader</h1>
+    <form method = "POST" action="/todatabase" enctype="multipart/form-data">
+        {% csrf_token %}
+        <p>Caption<input type="text" name="caption"></p>
+        <p>File<input type="file" name="image"></p>
+        <button type="submit">Upload</button>
+        <a href="/logout">Logout</a>
+        <a href="/ranking">Ranking</a>
+    </form>
+    <table>
+        <tr>
+            <th>Photo</th>
+            <th>Number of Likes</th>
+            <th>Comment</th>
+            <th>Like</th>
+        </tr>
+        {% for photo in all_photos %}
+        <tr>    
+            <th><img width="400px" height="300px" src="{{ photo.imagefile.url }}"></th>
+            <th>{{ photo.user_who_like.all.count }}</th>
+            {% if photo.current_user.first_name != current_user.first_name %}
+            <th><form method= "POST" action="/comment/{{photo.id}}">
+                {% csrf_token %}
+                <input type="text" name="comment">
+                <button type="submit">Submit</button>
+            </form></th>
+            <th><a href="../like/{{photo.id}}">Like</a></th>
+            {% endif %}
+            {% for comment in all_comments %}
+            {% if comment in photo.photo_comments.all %}
+            <th>{{ comment.comment }}</th>
+            {% endif %}
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+    </div>
+</body>
+</html>

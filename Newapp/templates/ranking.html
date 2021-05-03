@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ranking</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div id="ranking">
+    <h1>Ranking</h1>
+    <a href="/logout">Logout</a>
+    <table>
+        <tr>
+            <th>Photo</th>
+            <th>Posted By</th>
+            <th>Ranking</th>
+        </tr>
+        {% for rank in rank_like.all %}
+        <tr>    
+            <th><img width="400px" height="300px" src="{{ rank.imagefile.url }}"></th>
+            <th>{{ rank.current_user.first_name }}{{ rank.current_user.last_name }}</th>
+            <th>{{ forloop.counter }}</th>
+        </tr>
+        {% endfor %}
+    </table>
+    </div>
+</body>
+</html>
