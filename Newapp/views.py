@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.db.models import Count
 from .models import *
 import bcrypt
 
@@ -64,7 +65,7 @@ def comment(request, photo_id):
 
 def ranking(request):
     context={
-        'rank_like': Photo.objects.all().order_by("Photo.objects.all().order_by('user_who_like').count()")
+        'rank_like': Photo.objects.annotate(count=Count('user_who_like')).order_by('-count')
     }
     return render(request, "ranking.html", context)
 
